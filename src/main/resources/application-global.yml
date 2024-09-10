@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+
+spring:
+  cloud:
+    gateway:
+      http-client:
+        connect-timeout: 60000
+        response-timeout: 60s
+      routes:
+        - id: blautech-crud
+          uri: http://mongo-crud-service:6050
+          predicates:
+            - Path=/v1/product/**
+
+logging:
+  level:
+    root: debug
